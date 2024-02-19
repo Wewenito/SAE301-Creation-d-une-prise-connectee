@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+{% load static %}
+
+<html>
+
+{%block HEAD%}
+
+<script>
+    window.onload = function () {
+        var chart = new CanvasJS.Chart("chartContainer", {
+            exportEnabled: true,
+            animationEnabled: true,
+            theme: "light2",
+            title: {
+                text: "Température en fonction du temps"
+            },
+            axisX: {
+                valueFormatString: "DD/MM/YYYY HH:mm:ss"
+            },
+            axisY: {
+                title: "User Count"
+            },
+            toolTip: {
+                shared: true
+            },
+            legend: {
+                cursor: "pointer",
+                verticalAlign: "top",
+                itemclick: toggleDataSeries
+            },
+            data: [{
+                type: "line",
+                name: "Prise1",
+                showInLegend: true,
+                yValueFormatString: "#,##0",
+                dataPoints: {{ stepcount|safe }}
+            },{
+                type: "line",
+                name: "Prise2",
+                showInLegend: true,
+                yValueFormatString: "#,##0",
+                dataPoints: {{ stepcount2|safe }}
+            },{
+                type: "line",
+                name: "Prise3",
+                showInLegend: true,
+                yValueFormatString: "#,##0",
+                dataPoints: {{ stepcount3|safe }}
+            }]
+        });
+        chart.render();
+    
+        function toggleDataSeries(e) {
+            if (typeof (e.dataSeries.visible) === "undefined" || e.dataSeries.visible) {
+                e.dataSeries.visible = false;
+            } else {
+                e.dataSeries.visible = true;
+            }
+            e.chart.render();
+        }
+    }
+  
+  </script>    
+
+{%endblock%}
+{% include 'dubstep_app/main.html' %}
+
+{% block HEADER %}
+{%endblock%}
+
+
+{% block CONTENT%}
+    
+
+
+<div class="groupgraph">    
+    <div class='graph' id="chartContainer" style="width: 100%; height: 360px;"></div>
+</div>
+
+
+{%endblock%}
+
+
+</html>

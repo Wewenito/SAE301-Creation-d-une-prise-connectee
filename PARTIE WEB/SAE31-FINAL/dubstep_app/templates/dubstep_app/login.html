@@ -1,0 +1,50 @@
+<html>
+
+    <head>
+
+        {% load static %}
+    <title> Log in </title>
+   
+            <link rel="stylesheet" type="text/css" href="{%static 'dubstep_app/login.css'%}">
+            <link rel="icon" type="image/png" href="/static/images/logo.png">
+
+
+        </head>
+
+<body>
+
+<div class="wrapper">
+    <div class="logo">
+        <img src="/static/images/logo.png" alt="">
+    </div>
+    <div class="text-center mt-4 name">
+    LOG IN
+    </div>
+    <form action="login_user" method="post" class="p-3 mt-3">
+        {% csrf_token %}
+        <br>
+        <div class="form-field d-flex align-items-center">
+            <span class="far fa-user"></span>
+            <label for="username"></label>
+            <input type="text" autocomplete="off" class="form-control" name="username" id="username" placeholder="Identifiant">
+        </div>
+        <div class="form-field d-flex align-items-center">
+            <span class="fas fa-key"></span>
+            <label for="password"></label>
+            <input type="password" autocomplete="off" class="form-control" name="password" id="password" placeholder="Enter Password">
+        </div>
+        <br>
+        <button type="submit" class="btn mt-3">Login</button>
+    </form>
+
+    {% for message in messages %}
+            <div class="alert alert-danger" role="alert">
+                {{ message }}
+            </div>
+    {% endfor %}
+</div>
+
+</body>
+
+
+</html>

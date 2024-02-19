@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+{% load static %}
+
+<html>
+
+{%block HEAD%}
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
+{%endblock%}
+    
+    {% include 'dubstep_app/main.html' %}
+
+    {% block content%}
+<div class="vraimentout">
+    <div class='plagesdiv'>
+        <form method="post" action="/dubstep_app/traitement/">
+            {% csrf_token %}
+            <div>
+                <div class="autrediv">
+                    <div class="hautdiv">
+                        <div class="datesdiv">
+                            <img draggable="false" src="{% static '/images/calendar.png' %}" type='image/png'>
+                            <div class="imgdate">
+                        
+                                <fieldset class="form-group">
+                                    <label for="{{ form.datetime_debut.id_for_label }}"></label>
+                                    {{ form.datetime_debut }}
+                                </fieldset>
+                            </div>
+
+                            <div class="imgdate">
+                        <fieldset class="form-group">
+                                    <label for="{{ form.datetime_fin.id_for_label }}"></label>
+                                    {{ form.datetime_fin }}
+                                </fieldset>
+                            </div>
+                        </div>
+                        <div class="datesdiv">
+                            <img draggable="false" src="{% static '/images/houseconnected.png' %}" type='image/png'>
+                        </div>
+                    </div>
+                    <div class="checkdiv">
+                        <div class="form-check form-switch">
+                            {{ form.plages_on_off }}
+                            <label class="form-check-label" for="{{ form.plages_on_off.id_for_label }}"></label>
+                        </div>
+                        <div class="input-group mb-3 checkbox" >
+                            <div class="input-group-prepend">
+                                <label for="{{ form.topicname.id_for_label}}"></label>
+                                {{ form.topicname }}
+                            </div>
+                        </div>
+                    </div>
+                    <div class='buttonmsg'>
+                        <button type="submit" class="custom-btn btn btn-primary">Confirmer</button>
+                        {% for message in messages %}
+                        <div class="alert alert-danger" id="error-section" role="alert">
+                        {{ message }}
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>  
+                <div class= 'nav-totula'>
+                    <div class="totula">
+                        <div id="carouselExampleControls" class="carousel slide" data-ride="carousel" data-interval="15000">
+                            <div class="carousel-inner">
+                                <div class="carousel-item active" id="carou1">
+                                    <div class="scrolldiv">
+                                        {% for Plageshoraires in data1 %}
+                                        {% if Plageshoraires.plages_on_off == True %}
+                                        <div class="autrediv2-on" type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop{{Plageshoraires.id}}">
+                                        {% else %}
+                                        <div class="autrediv2-off" type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop{{Plageshoraires.id}}">
+                                        {% endif %}
+                                            <div class="plagesinfos">
+                                                <p> {{Plageshoraires.datetime_debut}} </p>
+                                                <p> {{Plageshoraires.datetime_fin}} </p>
+                                            </div>
+                                            <div class="plagesinfos2"> 
+                                            {% if Plageshoraires.plages_on_off == True %}
+                                                <p> ON </p>
+                                            {% else %}
+                                                <p> OFF </p>
+                                            {% endif %}
+                                                <p> {{Plageshoraires.topicname}} </p>
+                                            </div>
+                                        </div>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                                    {% for Plageshoraires in data1 %}
+                                    <div class="modal fade" id="staticBackdrop{{Plageshoraires.id}}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel{{Plageshoraires.id}}" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                          <div class="modal-content">
+                                            <div class="modal-header">
+                                              <h5 class="modal-title" id="staticBackdropLabel{{Plageshoraires.id}}">Gérer votre plage horaire</h5>
+                                              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <p> {{Plageshoraires.datetime_debut}} </p>
+                                                <p> {{Plageshoraires.datetime_fin}} </p>
+                                                {% if Plageshoraires.plages_on_off == True %}
+                                                <p> ON </p>
+                                            {% else %}
+                                                <p> OFF </p>
+                                            {% endif %}
+                                                <p> {{Plageshoraires.topicname}} </p>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+                                                <button type="button" onclick="window.location.href='/delete/{{Plageshoraires.id}}';" class="btn btn-danger">Supprimer</button>
+                                            </div>
+                                          </div>
+                                        </div>
+                                    </div>
+                                    {% endfor %}
+                                <div class="carousel-item" id="carou2">
+                                   <div class="scrolldiv">
+                                        {% for Plageshoraires in data2 %}
+                                        {% if Plageshoraires.plages_on_off == True %}
+                                        <div class="autrediv2-on" type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop{{Plageshoraires.id}}">
+                                        {% else %}
+                                        <div class="autrediv2-off" type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop{{Plageshoraires.id}}">
+                                        {% endif %}
+                                            <div class="plagesinfos">
+                                                <p> {{Plageshoraires.datetime_debut}} </p>
+                                                <p> {{Plageshoraires.datetime_fin}} </p>
+                                            </div>
+                                            <div class="plagesinfos2"> 
+                                            {% if Plageshoraires.plages_on_off == True %}
+                                                <p> ON </p>
+                                            {% else %}
+                                                <p> OFF </p>
+                                            {% endif %}
+                                                <p> {{Plageshoraires.topicname}} </p>
+                                            </div>
+                                        </div>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                                    {% for Plageshoraires in data2 %}
+                                    <div class="modal fade" id="staticBackdrop{{Plageshoraires.id}}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel{{Plageshoraires.id}}" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                          <div class="modal-content">
+                                            <div class="modal-header">
+                                              <h5 class="modal-title" id="staticBackdropLabel{{Plageshoraires.id}}">Gérer votre plage horaire</h5>
+                                              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <p> {{Plageshoraires.datetime_debut}} </p>
+                                                <p> {{Plageshoraires.datetime_fin}} </p>
+                                                {% if Plageshoraires.plages_on_off == True %}
+                                                <p> ON </p>
+                                            {% else %}
+                                                <p> OFF </p>
+                                            {% endif %}
+                                                <p> {{Plageshoraires.topicname}} </p>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+                                                <button type="button" onclick="window.location.href='/delete/{{Plageshoraires.id}}';" class="btn btn-danger">Supprimer</button>
+                                            </div>
+                                          </div>
+                                        </div>
+                                    </div>
+                                    {% endfor %}
+                                
+                                <div class="carousel-item" id="carou3">
+                                    <div class="scrolldiv">
+                                         {% for Plageshoraires in data3 %}
+                                         {% if Plageshoraires.plages_on_off == True %}
+                                         <div class="autrediv2-on" type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop{{Plageshoraires.id}}">
+                                         {% else %}
+                                         <div class="autrediv2-off" type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop{{Plageshoraires.id}}">
+                                         {% endif %}
+                                             <div class="plagesinfos">
+                                                 <p> {{Plageshoraires.datetime_debut}} </p>
+                                                 <p> {{Plageshoraires.datetime_fin}} </p>
+                                             </div>
+                                             <div class="plagesinfos2"> 
+                                             {% if Plageshoraires.plages_on_off == True %}
+                                                 <p> ON </p>
+                                             {% else %}
+                                                 <p> OFF </p>
+                                             {% endif %}
+                                                 <p> {{Plageshoraires.topicname}} </p>
+                                             </div>
+                                         </div>
+                                         {% endfor %}
+                                     </div>
+                                    </div>
+                                     {% for Plageshoraires in data3 %}
+                                     <div class="modal fade" id="staticBackdrop{{Plageshoraires.id}}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel{{Plageshoraires.id}}" aria-hidden="true">
+                                         <div class="modal-dialog">
+                                           <div class="modal-content">
+                                             <div class="modal-header">
+                                               <h5 class="modal-title" id="staticBackdropLabel{{Plageshoraires.id}}">Gérer votre plage horaire</h5>
+                                               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                             </div>
+                                             <div class="modal-body">
+                                                 <p> {{Plageshoraires.datetime_debut}} </p>
+                                                 <p> {{Plageshoraires.datetime_fin}} </p>
+                                                 {% if Plageshoraires.plages_on_off == True %}
+                                                 <p> ON </p>
+                                             {% else %}
+                                                 <p> OFF </p>
+                                             {% endif %}
+                                                 <p> {{Plageshoraires.topicname}} </p>
+                                             </div>
+                                             <div class="modal-footer">
+                                               <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+                                               <button type="button" onclick="window.location.href='/delete/{{Plageshoraires.id}}';" class="btn btn-danger">Supprimer</button>
+                                             </div>
+                                           </div>
+                                         </div>
+                                     </div>
+                                     {% endfor %}
+                                 </div>
+                            </div>
+                        <div class="divnav">
+                            <nav aria-label="...">
+                                <ul class="pagination pagination-lg navpage">
+                                <li class="page-item"><a class="page-link" href="#carouselExampleControls" role="button" data-slide="prev">«</a></li>
+                                    <li class="page-item"> <li class="page-link" data-target="#carouselExampleControls" data-slide-to="0" class="active"> 1 </li> </li>
+                                    <li class="page-item"> <li class="page-link" data-target="#carouselExampleControls" data-slide-to="1" class="active"> 2 </li> </li>
+                                    <li class="page-item"> <li class="page-link" data-target="#carouselExampleControls" data-slide-to="2" class="active"> 3 </li> </li>
+                                <li class="page-item"><a class="page-link" href="#carouselExampleControls" role="button" data-slide="next">»</a></li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+    {% endblock %}
+  
+
+  
+
+</html>
+
+
+
+<!-- |date:"d/m/Y" -->

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+{% load static %}
+
+<head>
+    {%block HEAD%}
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="refresh" content="">
+    <title>SAE-24</title>
+    <link rel="icon" type="image/png" href="/static/images/logo.png">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="{% static 'MAIN/styles_mainpage.css' %}">
+    <link rel="stylesheet" href="{% static 'BOOTSTRAP/css_BOOTSTRAP/bootstrap.min.css' %}">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+    <script src="{% static 'canvasjs/canvasjs-chart-3.7.9/canvasjs.min.js' %}"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="jquery-3.7.1.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    {%endblock%}
+</head>
+
+<body id="body">
+<header>
+    {% block HEADER %}
+    <div class="pos-f-t">
+        <div class="collapse" id="navbarToggleExternalContent">
+            <div class="bg-color p-4">
+                <h5 class="text-white h4">SAE 3.01</h5>
+                <div class="ttee2">
+                    <div class="ttee">
+                        <a class="nav-item nav-link active" href="/mainpage">
+                            <button type="button" class="button-51" role="button">Home <span class="sr-only">(current)</span></button>
+                        </a>
+                        <a class="nav-item nav-link" href="/plages">
+                            <button type="button" class="button-51" role="button">Plage horaire<span class="sr-only">(current)</span></button>
+                        </a>
+
+                        <a class="nav-item nav-link" href="/jukebox">
+                            <button type="button" class="button-51" role="button">Jukebox <span class="sr-only">(current)</span></button>
+                        </a>
+
+                        <a class="nav-item nav-link" href="/graphique">
+                                <button type="button" class="button-51" role="button">Graphique <span class="sr-only">(current)</span></button>
+                        </a>
+                        
+                        <a class="nav-item nav-link" href="/graphiquecomplet">
+                        <label class="button-51">
+                            Importer<input type="file" style="display: none;">
+                        </label>
+                        </a>
+                    </div>
+                    <div class="ttee ttee3">
+                        <a class="nav-item nav-link deco" href="/logout_user" draggable="false"><button class="button-51b" role="button">Déconnexion</button>
+                        </a> 
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+        <nav class="navbar navbar-dark bg-color2">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+        </nav>
+    </div>
+    {% endblock %}
+</header>
+
+{% block content %}
+{% endblock %}
+
+

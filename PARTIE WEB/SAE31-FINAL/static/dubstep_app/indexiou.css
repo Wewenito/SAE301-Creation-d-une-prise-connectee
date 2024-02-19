@@ -1,0 +1,58 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
+
+* {
+    font-family: 'Poppins', sans-serif;
+}
+
+body{
+
+    max-width: 100%;
+    display: flex;
+    flex-direction: column;
+    background-image: url("/static/dubstep_app/images/nightclub.jpg");
+    background-size: cover;
+    margin: 0;
+}
+
+.tout{
+    display: flex;
+    flex-direction: column;
+}
+
+.section{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    width: 100%;
+}
+
+.section p{
+    font-size: 150px;
+}
+
+.infos p{
+    font-size: 35px;
+}
+
+.mega{
+    width: 85%;
+    text-align: end;
+}
+
+.boule{
+    width: 115%;
+    text-align: center;
+}
+
+.hot{
+    width: 85%;
+    text-align: start;
+}
+
+
+.infos{
+    background-color: beige;
+}
+
+
+

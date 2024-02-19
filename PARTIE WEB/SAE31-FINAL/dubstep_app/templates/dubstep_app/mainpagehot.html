@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+
+<html>
+
+    <head>
+
+        {% load static %}
+    <title> Site Web - Index </title>
+   
+            <link rel="stylesheet" type="text/css" href="{%static 'dubstep_app/indexiou.css'%}">
+
+        </head>
+
+
+    <body id="background">
+
+        <div class="tout">  
+            
+            
+            <div class="section">
+
+                <div class="mega">
+                    <p> MEGA</p>
+                </div>
+
+                <div class="boule">
+                    <img src="{% static '/dubstep_app/images/boule.gif' %}" type='image/gif'>
+                </div>   
+
+                <div class="hot">
+                    <p> HOT </p>
+                </div>
+            </div>
+
+
+            <div class="section">
+
+                <div class="danceman">
+                    <img src="{% static '/dubstep_app/images/dancingman.gif' %}" type='image/gif'>
+                </div>
+
+                {% for Donnees in Donnees_charge%}
+                <div class="infos">
+                    <p> Température : {{Donnees.temp}}°C</p>
+                    <p>  Date : {{Donnees.date|date:"d/m/Y"}}</p>
+                    <p> ON / OFF : {{Donnees.on_off}}</p>
+                </div>     
+                {% endfor %}
+
+                <div class="thermometre">
+                    <img src="{% static '/dubstep_app/images/hot.png' %}" type='image/png'>
+                </div>
+            
+            </div>
+
+
+            <div class="section">
+
+                
+            </div>
+
+        
+        </div>
+
+
+
+    </body>
+</html>
+
+<!--{{l.date_parution|date:"d/m/Y"}} -->

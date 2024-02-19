@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+{% load static %}
+
+<html>
+
+{%block HEAD%}
+
+{%endblock%}
+    
+    {% include 'dubstep_app/main.html' %}
+
+    {% block content%}
+    <div id="carouselExampleControls" class="carousel slide" data-ride="carousel" data-interval="15000">
+      <div class="carousel-inner">
+        <div class="carousel-item active" id="carou1">
+          {% for Temp, Donnees, Pression, Humitide in data %}
+          <div class="all">
+            <div class="image-dehors">
+              <div class="image-dedans " id="maison">
+                {% if Donnees.on_off == 1 %}
+                <img draggable="false" src="{% static '/images/houseon.png' %}" type='image/png'>
+                {% else  %}
+                <img draggable="false" src="{% static '/images/house.png' %}" type='image/png'>
+                {% endif %}
+                <div class="phome">
+                  <form method="post" action="mainpage">
+                    <div class="nomprise">
+                      <p> {{ Donnees.topicname }} </p>
+                    </div>
+                    <div class="divform">
+                    {% csrf_token %}
+                    <button type="submit" name="action" id="btn" class="btn btn-danger" value="OFF">OFF</button>
+                
+                    {% if Donnees.on_off == 1 %}
+                    <div class="toggle on"></div>
+                    {% else %}
+                    <div class="toggle"></div>
+                    {% endif %}
+                
+                  <button type="submit" name="action" id="btn2" class="btn btn-success" value="ON">ON</button>
+                    </div>
+                </form>
+                </div>
+              </div>
+              <div class="image-dedans" id="temp" >
+                  <img draggable="false" src="{% static '/images/temp.png' %}" type='image/png'>
+                  <p class="ptemp">{{Temp.temp}}°C</p>
+              </div>
+              <div class="image-dedans" id="clock">
+                  <img draggable="false" src="{% static '/images/clock.gif' %}" type='image/gif'>
+                  <p>{{ Donnees.date|slice:":16" }}</p>
+              </div>
+            </div>
+
+            <div class="image-dehors2">
+              <div class="image-dedans " id="altitude">
+                <img draggable="false" src="{% static '/images/montagne.png' %}" type='image/png'>
+                <div class="phome">
+                  <form method="post" action="mainpage">
+                    <div class="nomprise">
+                      <p> {{ Pression.altitude|floatformat:2}}m </p>
+                    </div>
+                </form>
+                </div>
+              </div>
+              <div class="image-dedans" id="pression">
+                  <img draggable="false" src="{% static '/images/pression.png' %}" type='image/png'>
+                  <p class="ppression">{{Pression.pression}} Hpa</p>
+              </div>
+              <div class="image-dedans" id="clock">
+                  <img draggable="false" src="{% static '/images/humidite.png' %}" type='image/gif'>
+                  <p>{{ Humitide.humidite }}%</p>
+              </div>
+            </div>
+          </div>
+          {% if Temp.temp >= 50 %}
+          <div id="exampleModalCenter" class="modal fade show" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" style="padding-right: 15px; display: block;">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalCenterTitle">AU FEU !!!</h5>
+                </div>
+                <div class="modal-body imgmodal">
+                  <img draggable="false" src="{% static '/images/fire.png' %}" type='image/png'>
+                 </div>
+                <div class="modal-footer">
+                  <p> FAITES QUELQUE CHOSE <p>
+                </div>
+              </div>
+            </div>
+          </div>
+        {% endif %}
+          {%endfor%}
+        </div>
+
+        <div class="carousel-item" id="carou2">
+          {% for Temp, Donnees, Pression, Humitide in data2 %}
+          <div class="all">
+            <div class="image-dehors">
+              <div class="image-dedans " id="maison">
+                {% if Donnees.on_off == 1 %}
+                <img draggable="false" src="{% static '/images/houseon.png' %}" type='image/png'>
+                {% else  %}
+                <img draggable="false" src="{% static '/images/house.png' %}" type='image/png'>
+                {% endif %}
+                <div class="phome">
+                  <form method="post" action="mainpage">
+                    <div class="nomprise">
+                      <p> {{ Donnees.topicname }} </p>
+                    </div>
+                    <div class="divform">
+                    {% csrf_token %}
+                    <button type="submit" name="action" id="btn" class="btn btn-danger" value="OFF2">OFF</button>
+                
+                    {% if Donnees.on_off == 1 %}
+                    <div class="toggle on"></div>
+                    {% else %}
+                    <div class="toggle"></div>
+                    {% endif %}
+                
+                  <button type="submit" name="action" id="btn2" class="btn btn-success" value="ON2">ON</button>
+                    </div>
+                </form>
+                </div>
+              </div>
+              <div class="image-dedans" id="temp">
+                  <img draggable="false" src="{% static '/images/temp.png' %}" type='image/png'>
+                  <p class="ptemp">{{Temp.temp}}°C</p>
+              </div>
+              <div class="image-dedans" id="clock">
+                  <img draggable="false" src="{% static '/images/clock.gif' %}" type='image/gif'>
+                  <p>{{ Donnees.date|slice:":16" }}</p>
+              </div>
+            </div>
+
+            <div class="image-dehors2">
+              <div class="image-dedans " id="altitude">
+                <img draggable="false" src="{% static '/images/montagne.png' %}" type='image/png'>
+                <div class="phome">
+                  <form method="post" action="mainpage">
+                    <div class="nomprise">
+                      <p> {{ Pression.altitude|floatformat:2}}m</p>
+                    </div>
+                </form>
+                </div>
+              </div>
+              <div class="image-dedans" id="pression">
+                  <img draggable="false" src="{% static '/images/pression.png' %}" type='image/png'>
+                  <p class="ppression">{{Pression.pression}} Hpa </p>
+              </div>
+              <div class="image-dedans" id="clock">
+                  <img draggable="false" src="{% static '/images/humidite.png' %}" type='image/gif'>
+                  <p>{{ Humitide.humidite }}%</p>
+              </div>
+            </div>
+          </div>
+          {% if Temp.temp >= 50 %}
+          <div id="exampleModalCenter" class="modal fade show" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" style="padding-right: 15px; display: block;">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalCenterTitle">AU FEU !!!</h5>
+                </div>
+                <div class="modal-body imgmodal">
+                  <img draggable="false" src="{% static '/images/fire.png' %}" type='image/png'>
+                 </div>
+                <div class="modal-footer">
+                  <p> FAITES QUELQUE CHOSE <p>
+                </div>
+              </div>
+            </div>
+          </div>
+        {% endif %}
+          {%endfor%}
+        </div>
+
+        <div class="carousel-item" id="carou3">
+          {% for Temp, Donnees, Pression, Humitide in data3 %}
+          <div class="all">
+            <div class="image-dehors">
+              <div class="image-dedans" id="maison">
+                {% if Donnees.on_off == 1 %}
+                <img draggable="false" src="{% static '/images/houseon.png' %}" type='image/png'>
+                {% else  %}
+                <img draggable="false" src="{% static '/images/house.png' %}" type='image/png'>
+                {% endif %}
+                <div class="phome">
+                  <form method="post" action="mainpage">
+                    <div class="nomprise">
+                      <p> {{ Donnees.topicname }} </p>
+                    </div>
+                    <div class="divform">
+                    {% csrf_token %}
+                    <button type="submit" name="action" id="btn" class="btn btn-danger" value="OFF3">OFF</button>
+                
+                    {% if Donnees.on_off == 1 %}
+                    <div class="toggle on"></div>
+                    {% else %}
+                    <div class="toggle"></div>
+                    {% endif %}
+                
+                  <button type="submit" name="action" id="btn2" class="btn btn-success" value="ON3">ON</button>
+                    </div>
+                </form>
+                </div>
+              </div>
+              <div class="image-dedans" id="temp">
+                  <img draggable="false" src="{% static '/images/temp.png' %}" type='image/png'>
+                  <p class="ptemp">{{Temp.temp}}°C</p>
+              </div>
+              <div class="image-dedans" id="clock">
+                  <img draggable="false" src="{% static '/images/clock.gif' %}" type='image/gif'>
+                  <p>{{ Donnees.date|slice:":16" }}</p>
+              </div>
+            </div>
+
+            <div class="image-dehors2">
+              <div class="image-dedans " id="altitude">
+                <img draggable="false" src="{% static '/images/montagne.png' %}" type='image/png'>
+                <div class="phome">
+                  <form method="post" action="mainpage">
+                    <div class="nomprise">
+                      <p> {{ Pression.altitude|floatformat:2}}m</p>
+                    </div>
+                </form>
+                </div>
+              </div>
+              <div class="image-dedans" id="pression">
+                  <img draggable="false" src="{% static '/images/pression.png' %}" type='image/png'>
+                  <p class="ppression">{{Pression.pression}} Hpa</p>
+              </div>
+              <div class="image-dedans" id="clock">
+                  <img draggable="false" src="{% static '/images/humidite.png' %}" type='image/gif'>
+                  <p>{{ Humitide.humidite }}%</p>
+              </div>
+            </div>
+          </div>
+          {% if Temp.temp >= 50 %}
+          <div id="exampleModalCenter" class="modal fade show" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" style="padding-right: 15px; display: block;">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalCenterTitle">AU FEU !!!</h5>
+                </div>
+                <div class="modal-body imgmodal">
+                  <img draggable="false" src="{% static '/images/fire.png' %}" type='image/png'>
+                 </div>
+                <div class="modal-footer">
+                  <p> FAITES QUELQUE CHOSE <p>
+                </div>
+              </div>
+            </div>
+          </div>
+        {% endif %}
+          {%endfor%}
+        </div>
+
+      </div>
+    </div>
+    <form method="post" action="mainpage">
+      {% csrf_token %}
+    <div class="buttondiv">
+        <div class="toutonoff">
+          <button type="submit" name="action" id="btn" class="btn btn-danger boutontout" value="TOUTOFF">TOUT ÉTEINDRE</button>
+          <button type="submit" name="action" id="btn" class="btn btn-info boutontout" value="TOUTON">TOUT ALLUMER</button>
+        </div>
+      <nav aria-label="...">
+        <ul class="pagination pagination-lg navpage">
+          <li class="page-item"><a class="page-link" href="#carouselExampleControls" role="button" data-slide="prev">«</a></li>
+            <li class="page-item"> <li class="page-link" data-target="#carouselExampleControls" data-slide-to="0" class="active"> 1 </li> </li>
+            <li class="page-item"> <li class="page-link" data-target="#carouselExampleControls" data-slide-to="1" class="active"> 2 </li> </li>
+            <li class="page-item"> <li class="page-link" data-target="#carouselExampleControls" data-slide-to="2" class="active"> 3 </li> </li>
+          <li class="page-item"><a class="page-link" href="#carouselExampleControls" role="button" data-slide="next">»</a></li>
+        </ul>
+      </nav>
+    </div>
+  </form>
+
+    {% endblock %}
+  
+    <script>
+      document.addEventListener("DOMContentLoaded", event => {
+          function wait() {
+              document.documentElement.style.cursor = "wait";
+              const x = document.getElementById("btn");
+              x.style.cursor = "wait";
+              const x2 = document.getElementById("btn2");
+              x2.style.cursor = "wait";
+              
+          }
+  
+          document.getElementById('btn').addEventListener('click', function() {
+              wait();
+          });
+          document.getElementById('btn2').addEventListener('click', function() {
+            wait();
+          });
+      });
+
+
+      $(document).ready(function(){
+        setInterval(function(){
+          $("#carouselExampleControls").load(window.location.href + " #carouselExampleControls");
+        }, 10000);
+      });
+
+        
+  </script>
+  
+
+</html>
+
+
+
+<!-- |date:"d/m/Y" -->
